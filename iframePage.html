@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>iframePage</title>
+</head>
+<body style="border:5px solid #333;">
+
+  <h1>this is iframePage</h1>
+
+  <script>
+
+    //给父页面发送消息
+    parent.postMessage( {msg: 'MessageFromIframePage'}, '*');
+
+    //回调函数
+    function receiveMessageFromIndex ( event ) {
+      console.log( 'receiveMessageFromIndex', event )
+    }
+
+    //监听message事件
+    window.addEventListener("message", receiveMessageFromIndex, false);
+  </script>
+</body>
+</html>

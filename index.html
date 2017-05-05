@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>index</title>
+</head>
+<body style="border:5px solid #333;">
+
+  <h1>this is index</h1>
+
+  <iframe src="./iframePage.html" id='myframe'></iframe>
+
+  <script>
+    //获取iframe元素
+    iFrame = document.getElementById('myframe')
+
+    //iframe加载完毕后再发送消息，否则子页面接收不到message
+    iFrame.onload = function(){
+
+      //iframe加载完立即发送一条消息
+      iFrame.contentWindow.postMessage('MessageFromIndex1','*');
+
+      //iframe加载完再延迟1000ms发送一条消息
+      setTimeout(()=>{
+        iFrame.contentWindow.postMessage('MessageFromIndex2','*');
+      },1000)
+
+    }
+
+    //回调函数
+    function receiveMessageFromIframePage (event) {
+        console.log('receiveMessageFromIframePage', event)
+    }
+
+    //监听message事件
+    window.addEventListener("message", receiveMessageFromIframePage, false);
+
+  </script>
+</body>
+</html>
